@@ -32,13 +32,34 @@ public class AbstractEmbeddedCassandraTest {
 	@Value("${test.url}")
 	protected String url;
 
+	@Value("${app.test.welcome}")
+	public String welcomeMsg; 
+	
 	@Autowired
 	protected TestRestTemplate restTemplate;
 
 	@PostConstruct
 	public void init() {
 
-		UriTemplateHandler handler = new DefaultUriBuilderFactory(UriComponentsBuilder.fromUriString(url + ":" + port));
-		restTemplate.setUriTemplateHandler(handler);
+		UriTemplateHandler handler = new DefaultUriBuilderFactory(UriComponentsBuilder.fromUriString(getUrl() + ":" + getPort()));
+		getRestTemplate().setUriTemplateHandler(handler);
 	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public String getWelcomeMsg() {
+		return welcomeMsg;
+	}
+
+	public TestRestTemplate getRestTemplate() {
+		return restTemplate;
+	}
+	
+	
 }

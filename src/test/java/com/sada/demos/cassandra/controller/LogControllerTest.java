@@ -20,8 +20,8 @@ public class LogControllerTest extends AbstractEmbeddedCassandraTest {
 
     @Test
     public void testFindOne() throws Exception {
-
-        ResponseEntity<Log> response = restTemplate.getForEntity("/logs/{id}", Log.class, 1);
+    	System.out.println("Welcome to "+getWelcomeMsg());
+        ResponseEntity<Log> response = getRestTemplate().getForEntity("/logs/{id}", Log.class, 1);
 
         assertThat(response.getStatusCode()     , is(HttpStatus.OK));
         assertThat(response.getBody().getQuery(), is("cinema"));
