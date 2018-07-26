@@ -1,16 +1,31 @@
 group 'com.sada.demos'
 version '1.0-SNAPSHOT'
+def projectName = 'SonarQube Scanner for MyAppliction'
 
 apply plugin: 'java'
+apply plugin: 'jacoco'
 
 
 ext {
     springBootVersion = '1.4.6.RELEASE'
+    jacocoVersion = '0.7.5.201505241946'
 }
 
 repositories {
     mavenCentral()
 }
+
+jacoco {
+	toolVersion = jacocoVersion
+}
+jacocoTestReport {
+  reports {
+    html.enabled = true
+    xml.enabled = true
+    csv.enabled = true
+  }
+}
+test.finalizedBy jacocoTestReport
 
 //sourceCompatibility='8'
 
@@ -27,7 +42,6 @@ dependencies {
 
 	compile("org.springframework.boot:spring-boot-starter-web:2.0.3.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-data-cassandra:2.0.3.RELEASE")
-
 
 	compile("com.datastax.cassandra:cassandra-driver-core:3.5.0")
     compile("com.datastax.cassandra:cassandra-driver-dse:3.0.0-rc1")
